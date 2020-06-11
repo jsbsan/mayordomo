@@ -1,0 +1,14 @@
+# Gambas Project File 3.0
+Title=mayordomo
+Startup=FMain
+Icon=mayordomo.png
+Version=0.0.1
+Component=gb.image
+Component=gb.gui.qt
+Component=gb.form
+Component=gb.gui.qt.webkit
+Description="Sistema que guarda y recupera los espacios de trabajo (programas abiertos y archivos) en la disposicion que ocupen."
+Authors="jsbsan"
+TabSize=4
+Language=en_US
+Packager=1

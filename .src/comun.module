@@ -1,0 +1,57 @@
+' Gambas module file
+
+Public Function contiene(texto As String, textoabuscar As String) As Boolean '' devuelve verdadero o falso si un texto contiene textoabuscar
+
+    If String.InStr(texto, textoabuscar) <> 0 Then
+        Return True
+    Else
+        Return False
+    Endif
+
+End
+
+Public Function DefinirGridSinFormato(OrigenGrid As Gridview, contenido As String)
+
+    Dim a, b As Integer
+    Dim lineas As String[]
+    Dim columnas As String[]
+
+    '1º fase: estudia contenido
+    lineas = Split(contenido, "\n") 'separadas por salto de linea
+
+    'la primera linea tiene los datos de nombre de columnas
+    columnas = Split(lineas[0], "\t") 'separadas por tabulador
+
+    'para borrar todo el contenido....
+    OrigenGrid.Clear()
+
+    'defino grid
+    With OrigenGrid
+        .header = 3
+        .columns.count = columnas.Count
+        .rows.count = lineas.count - 1 'le quito la primera linea
+
+        For a = 0 To columnas.count - 1
+            .columns[a].title = columnas[a]
+        Next
+
+        .Font.name = "Sans"
+        .Font.size = 8
+        .Mode = Select.Single
+    End With
+
+    'ahora meto los datos en las filas por cada columna
+
+    For a = 1 To lineas.count - 1
+        columnas = Split(lineas[a], "\t")
+        For b = 0 To columnas.count - 1
+
+            Try OrigenGrid[a - 1, b].text = columnas[b]
+
+        Next
+
+    Next
+
+    Return
+
+End

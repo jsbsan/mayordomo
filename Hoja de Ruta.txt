@@ -1,0 +1,10 @@
+-> guardar aplicaciones/doucmentos abiertos y su posicion en pantalla
+
+Quizas con el patron comando  y con reglas se pueda programar facil, y usando el comando de linux
+wmctrl/
+para colocar las ventanas en su sitio y leer su posicion
+
+https://ratoncio.wordpress.com/2015/05/25/preparar-un-entorno-de-trabajo-con-wmctrl/
+
+
+https://www.hostinger.es/tutoriales/como-usar-comando-find-locate-en-linux/

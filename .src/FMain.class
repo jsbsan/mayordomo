@@ -1,0 +1,38 @@
+' Gambas class file
+
+Public Sub Form_Open()
+
+    HPanel1.h = Me.h
+    WebView1.URL = "test.html"
+    WebView1.Refresh()
+
+End
+
+Public Sub Button1_Click()
+
+    Dim a As Integer
+    Dim lineas As New String[]
+    Dim salida As String
+    Dim salidafinal As String
+    Dim columnasiniciales As String
+
+    Dim NombreEquipo As String
+
+    Shell "wmctrl -lGpx" To salida
+
+    Shell "hostname" To nombreEquipo
+
+    columnasiniciales = "id" & "\t" & "A/C" & "\t" & "PID" & "\t" & "x1" & "\t" & "y1" & "\t" & "x2" & "\t" & "y2" & "\t" & "Ejecutable" & "\t" & "hostname" & "\t" & "titulo barra" & "\n"
+
+    TextAreaSalida.text = columnasiniciales & salida
+
+    salida = Replace(salida, "  ", " ")
+    salida = Replace(salida, "  ", " ")
+    salida = Replace(salida, "  ", " ")
+    salidafinal = Replace(salida, " ", "\t")
+
+    'leer contenido
+
+    comun.DefinirGridSinFormato(GridView1, columnasiniciales & salidafinal)
+
+End
