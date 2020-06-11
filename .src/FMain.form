@@ -1,31 +1,26 @@
 # Gambas Form File 3.0
 
 { Form Form
-  MoveScaled(0,0,106,97)
+  MoveScaled(0,0,173,97)
   Expand = True
   Icon = Picture["mayordomo.png"]
   Arrangement = Arrange.Fill
   { HPanel1 Panel
-    MoveScaled(0,0,105,97)
+    MoveScaled(0,0,173,97)
     Expand = True
     AutoResize = True
-    { TreeView1 TreeView
-      MoveScaled(2,5,32,52)
-      Expand = True
-    }
     { VSplit1 VSplit
-      MoveScaled(35,5,64,52)
+      MoveScaled(35,5,86,52)
       Expand = True
-      { WebView1 WebView
-        MoveScaled(8,13,9,7)
-        Url = "test.html"
+      { TextArea1 TextArea
+        MoveScaled(7,6,62,20)
       }
       { ListView1 ListView
         MoveScaled(6,27,11,8)
       }
     }
     { TextAreaSalida TextArea
-      MoveScaled(1,58,99,15)
+      MoveScaled(1,58,120,15)
       Font = Font["-2"]
     }
     { Button1 Button
@@ -33,17 +28,51 @@
       Text = ("Mostrar")
     }
     { ButtonCrear Button
-      MoveScaled(83,65,16,4)
+      MoveScaled(62,57,16,4)
     }
     { Label1 Label
-      MoveScaled(2,1,97,4)
+      MoveScaled(2,1,118,4)
       Font = Font["Bold,Italic,+3"]
       Text = ("ESPACIOS DE TRABAJO")
       Alignment = Align.Center
       Border = Border.Plain
     }
     { GridView1 GridView
-      MoveScaled(0,77,104,18)
+      MoveScaled(1,66,120,29)
+    }
+    { ButtonGuardar Button
+      MoveScaled(122,87,10,8)
+      Picture = Picture["icon:/32/save-as"]
+    }
+    { DrawingArea1 DrawingArea
+      MoveScaled(122,31,50,34)
+      Border = Border.Plain
+    }
+    { Frame1 Frame
+      MoveScaled(122,65,39,21)
+      Visible = False
+      Text = ("Ruta..") & "..."
+      { Label2 Label
+        MoveScaled(2,4,18,4)
+        AutoResize = True
+        Text = ("La ruta completa es.") & "..."
+      }
+      { ButtonBoxRutaFichero ButtonBox
+        MoveScaled(1,10,35,4)
+      }
+      { ButtonAceptarRuta Button
+        MoveScaled(21,16,17,3)
+        Text = ("aceptar")
+        Picture = Picture["icon:/16/ok"]
+      }
+      { ButtonCancelarRuta Button
+        MoveScaled(2,16,13,3)
+        Text = ("Cancelar")
+        Picture = Picture["icon:/16/cancel"]
+      }
+    }
+    { ListBox1 ListBox
+      MoveScaled(2,6,31,51)
     }
   }
 }

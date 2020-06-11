@@ -1,0 +1,17 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,145,63)
+  { DrawingArea1 DrawingArea
+    MoveScaled(1,8,68,47)
+    Background = Color.Black
+    Border = Border.Plain
+  }
+  { ScrollView1 ScrollView
+    MoveScaled(70,8,73,48)
+    Arrangement = Arrange.Fill
+    { VBox1 VBox
+      MoveScaled(-1,0,72,61)
+    }
+  }
+}

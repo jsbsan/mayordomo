@@ -55,3 +55,33 @@ Public Function DefinirGridSinFormato(OrigenGrid As Gridview, contenido As Strin
     Return
 
 End
+
+Public Function excluidos(linea As String) As Boolean
+
+    Dim excluidos As String[]
+    Dim ltmp As String
+
+    excluidos = Split(File.Load("ListaExcluidos"), "\n")
+
+    For Each ltmp In excluidos
+        If InStr(linea, ltmp) > 0 Then Return True
+    Next
+
+    'no esta en la linea de excluidos
+    Return False
+
+End
+
+Public Function volcarcontenido(GridView1 As Gridview) As String
+
+    'recorrer el gridvies, grabando x1,x2,x3,x4,aplicacion,fichero y signo de separacion "|"
+    Dim contenido As String
+    Dim a As Integer
+
+    For a = 0 To GridView1.rows.Count - 2
+        contenido &= GridView1[a, 3].text & "\t" & GridView1[a, 4].text & "\t" & GridView1[a, 5].text & "\t" & GridView1[a, 6].text & "\t" & GridView1[a, 7].text & "\t" & GridView1[a, 9].text & "|"
+    Next
+
+    Return contenido
+
+End

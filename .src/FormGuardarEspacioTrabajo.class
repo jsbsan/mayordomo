@@ -1,0 +1,7 @@
+' Gambas class file
+
+'leer los datos de las ventanas y dibujarlas, asignandole un color y ajustandolo a la ventana
+
+Public Sub Form_Open()
+
+End

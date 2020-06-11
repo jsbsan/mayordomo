@@ -1,20 +1,22 @@
 ' Gambas class file
 
+Private fila As Integer
+
 Public Sub Form_Open()
 
     HPanel1.h = Me.h
-    WebView1.URL = "test.html"
-    WebView1.Refresh()
+    recarga()
 
 End
 
 Public Sub Button1_Click()
 
-    Dim a As Integer
-    Dim lineas As New String[]
+    Dim a, b As Integer
+
+    Dim lineas, l As New String[]
     Dim salida As String
     Dim salidafinal As String
-    Dim columnasiniciales As String
+    Dim columnasiniciales, ultimocampo, ltmp As String
 
     Dim NombreEquipo As String
 
@@ -22,17 +24,101 @@ Public Sub Button1_Click()
 
     Shell "hostname" To nombreEquipo
 
+    nombreEquipo = Replace(nombreEquipo, "\n", "")
+
+    'cada linea de salida, debe de cambiar la parte donde aparezca nombreequipo y a partir de ella sustituir espacios por _
+    l = Split(salida, "\n")
+    For Each ltmp In l
+        b = InStr(ltmp, NombreEquipo)
+        If b > 0 And comun.excluidos(ltmp) = False Then
+            ultimocampo = Mid$(ltmp, b + Len(NombreEquipo) + 1, Len(ltmp))
+            ultimocampo = Replace(ultimocampo, " ", "-")
+            ltmp = Replace(ltmp, "         ", " ")
+            salidafinal &= Mid$(ltmp, 1, b + Len(NombreEquipo)) & ultimocampo & "\n"
+        Endif
+
+    Next
+
+    ' Print salidafinal
+
     columnasiniciales = "id" & "\t" & "A/C" & "\t" & "PID" & "\t" & "x1" & "\t" & "y1" & "\t" & "x2" & "\t" & "y2" & "\t" & "Ejecutable" & "\t" & "hostname" & "\t" & "titulo barra" & "\n"
 
     TextAreaSalida.text = columnasiniciales & salida
 
-    salida = Replace(salida, "  ", " ")
-    salida = Replace(salida, "  ", " ")
-    salida = Replace(salida, "  ", " ")
-    salidafinal = Replace(salida, " ", "\t")
+    salidafinal = Replace(salidafinal, "  ", " ")
+    salidafinal = Replace(salidafinal, "  ", " ")
+    salidafinal = Replace(salidafinal, "  ", " ")
+    salidafinal = Replace(salidafinal, " ", "\t")
 
     'leer contenido
 
     comun.DefinirGridSinFormato(GridView1, columnasiniciales & salidafinal)
+
+End
+
+Public Sub ButtonGuardar_Click()
+
+    Dim nombre As String
+
+    nombre = InputBox("Nombre de Sección de trabajo:")
+
+    settings[nombre] = comun.volcarcontenido(GridView1)
+
+    Settings["seccionesExistentes"] = Settings["seccionesExistentes", ""] & nombre & "|"
+
+    recarga()
+
+End
+
+Public Sub GridView1_DblClick()
+
+    fila = GridView1.Rows.Selection[0] 'fila seleccionada
+    Label2.text = GridView1[fila, 7].text & (": La ruta completa es...")
+
+    ButtonBoxRutaFichero.text = ""
+    Frame1.Visible = True
+
+End
+
+Public Sub HPanel1_MouseDown()
+
+End
+
+Public Sub ButtonBoxRutaFichero_Click()
+
+    If Dialog.OpenFile() Then
+        'cancelado
+    Else
+        ButtonBoxRutaFichero.text = Dialog.Path
+    Endif
+
+End
+
+Public Sub ButtonAceptarRuta_Click()
+
+    GridView1[fila, 9].text = ButtonBoxRutaFichero.text
+    Frame1.Visible = False
+
+End
+
+Public Sub ButtonCancelarRuta_Click()
+
+    Frame1.Visible = False
+
+End
+
+Public Sub recarga()
+
+    Dim s As New String[]
+
+    s = Split(Settings["seccionesExistentes"], "|")
+    s.Delete(s.Count - 1)
+    ListBox1.List = s
+
+End
+
+Public Sub ListBox1_DblClick()
+
+    TextArea1.text = Replace(Settings[ListBox1.List[ListBox1.Index]], "|", "\n")
 
 End
