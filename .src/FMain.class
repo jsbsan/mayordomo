@@ -112,8 +112,12 @@ Public Sub recarga()
     Dim s As New String[]
 
     s = Split(Settings["seccionesExistentes"], "|")
-    s.Delete(s.Count - 1)
-    ListBox1.List = s
+    Try s.Delete(s.Count - 1) 'por si no hay secciones Existentes
+    If Error Then
+        Return
+    Endif
+
+    ListBox1.List = s 'carga las seccione existentes.
 
 End
 
