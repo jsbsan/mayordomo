@@ -1,0 +1,33 @@
+' Gambas module file
+
+Public Function ColocarVentana(IDventana As String, x1 As String, y1 As String, x2 As String, y2 As String)
+
+    Shell ("wmctrl -v -i -r " & IDventana & " -e '0," & x1 & "," & y1 & "," & x2 & "," & y2 & "'") Wait
+
+End
+
+Public Function ListaVentanaIDProgramasSimilares(programa As String) As String[] 'devuelve un array con los datos de ID de las ventanas del programa indicado
+
+    Dim lista As String[]
+    Dim salida As String
+
+    Shell ("wmctrl -l | grep \"" & programa & "\" | awk '{print $1}')") To salida
+
+    lista = Split(salida, "\n")
+
+    Return lista
+
+End
+
+Public Function UltimoId() As String
+
+    Dim lista As String[]
+    Dim salida As String
+
+    Shell ("wmctrl -l | awk '{print $1}' >/tmp/l.ventanas") Wait
+
+    lista = Split(File.Load("/tmp/l.ventanas"), "\n")
+
+    Return lista[lista.count - 2] 'el ultimo es un espacio en blanco
+
+End

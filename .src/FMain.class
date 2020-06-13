@@ -123,6 +123,47 @@ End
 
 Public Sub ListBox1_DblClick()
 
-    TextArea1.text = Replace(Settings[ListBox1.List[ListBox1.Index]], "|", "\n")
+    TextAreaEspacioSeleccionado.text = Replace(Settings[ListBox1.List[ListBox1.Index]], "|", "\n")
+
+    'empezar proceso de abrir aplicaciones y asignarle la ventana
+
+End
+
+Public Sub ButtonCargarSeleccionada_Click()
+
+    Dim lineas As String[]
+    Dim datos As String[]
+    Dim ltmp As String
+    Dim nombrePrograma, nombreDatos As String
+    Dim ultimoId As String
+    'leo los datos seleccionado
+
+    If ListBox1.index <> -1 Then
+        '  TextAreaEspacioSeleccionado.text = Replace(Settings[ListBox1.List[ListBox1.Index]], "|", "\n")
+
+        lineas = Split(TextAreaEspacioSeleccionado.text, "\n")
+        lineas.Delete(lineas.count - 1)
+        For Each ltmp In lineas
+            datos = Split(ltmp, "\t")
+
+            ' crear la nueva vetnana
+            nombrePrograma = Mid$(datos[4], 1, InStr(datos[4], ".") - 1)
+
+            nombreDatos = datos[5]
+            If nombredatos <> "" Then
+                Shell nombreprograma & " \"" & nombreDatos & "\"" 'esperar hasta que se abra
+            Else
+                Shell nombrePrograma  'esperar hasta que se abra
+            Endif
+            Wait 1
+            ultimoId = GestionVentanas.UltimoId()
+
+            ' el ultimo a ñadido es el id que necesitamo
+            'y a este le asignamos el tamaño de la ventana
+            GestionVentanas.ColocarVentana(ultimoId, datos[0], datos[1], datos[2], datos[3])
+        Next
+    Else
+        Message.Error("Seleccione un espacio de trabajo")
+    Endif
 
 End
