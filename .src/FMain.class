@@ -4,12 +4,12 @@ Private fila As Integer
 
 Public Sub Form_Open()
 
-    HPanel1.h = Me.h
+    Me.Title = Application.Name & " version " & Application.Version
     recarga()
 
 End
 
-Public Sub Button1_Click()
+Public Sub ButtonMostrar_Click()
 
     Dim a, b As Integer
 
@@ -62,7 +62,9 @@ Public Sub ButtonGuardar_Click()
 
     nombre = InputBox("Nombre de Sección de trabajo:")
 
-    settings[nombre] = comun.volcarcontenido(GridView1)
+    If nombre = "" Then Return 'cancelada la opcion
+
+    settings[nombre] = comun.volcarcontenido(GridView1) & "###" & Replace(TextAreaNotas.text, "\n", "@#@")
 
     Settings["seccionesExistentes"] = Settings["seccionesExistentes", ""] & nombre & "|"
 
@@ -77,10 +79,6 @@ Public Sub GridView1_DblClick()
 
     ButtonBoxRutaFichero.text = ""
     Frame1.Visible = True
-
-End
-
-Public Sub HPanel1_MouseDown()
 
 End
 
@@ -121,14 +119,6 @@ Public Sub recarga()
 
 End
 
-Public Sub ListBox1_DblClick()
-
-    TextAreaEspacioSeleccionado.text = Replace(Settings[ListBox1.List[ListBox1.Index]], "|", "\n")
-
-    'empezar proceso de abrir aplicaciones y asignarle la ventana
-
-End
-
 Public Sub ButtonCargarSeleccionada_Click()
 
     Dim lineas As String[]
@@ -165,5 +155,36 @@ Public Sub ButtonCargarSeleccionada_Click()
     Else
         Message.Error("Seleccione un espacio de trabajo")
     Endif
+
+End
+
+Public Sub ButtonPapelera_Click()
+
+    Dim a As Integer
+
+    For a = 0 To 9
+        GridView1[fila, a].text = ""
+    Next
+    Frame1.Visible = False
+
+End
+
+Public Sub ListBox1_Click()
+
+    Dim informacionVentanas As String
+    Dim datos As String
+    Dim zonadeNota As Integer
+
+    datos = Settings[ListBox1.List[ListBox1.Index]]
+    informacionVentanas = Mid$(datos, 1, InStr(datos, "###") - 1)
+
+    zonadeNota = InStr(datos, "###")
+    If zonadeNota > 0 Then
+        TextAreaNotas.text = Replace(Mid$(datos, InStr(datos, "###") + 3, Len(datos)), "@#@", "\n")
+    Endif
+
+    TextAreaEspacioSeleccionado.text = Replace(informacionVentanas, "|", "\n")
+
+    'empezar proceso de abrir aplicaciones y asignarle la ventana
 
 End

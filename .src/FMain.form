@@ -9,30 +9,17 @@
     MoveScaled(0,0,173,97)
     Expand = True
     AutoResize = True
-    { VSplit1 VSplit
-      MoveScaled(35,5,86,52)
-      Expand = True
-      { TextAreaEspacioSeleccionado TextArea
-        MoveScaled(2,6,76,20)
-        Font = Font["-2"]
-      }
-      { ListView1 ListView
-        MoveScaled(6,27,11,8)
-      }
-    }
     { TextAreaSalida TextArea
       MoveScaled(1,58,120,15)
       Font = Font["-2"]
     }
-    { Button1 Button
-      MoveScaled(88,59,11,6)
-      Text = ("Mostrar")
-    }
-    { ButtonCrear Button
-      MoveScaled(62,57,16,4)
+    { ButtonMostrar Button
+      MoveScaled(85,59,32,6)
+      Text = ("Mostrar Ventanas")
+      Picture = Picture["icon:/32/screen"]
     }
     { Label1 Label
-      MoveScaled(2,1,118,4)
+      MoveScaled(2,1,119,4)
       Font = Font["Bold,Italic,+3"]
       Text = ("ESPACIOS DE TRABAJO")
       Alignment = Align.Center
@@ -42,7 +29,8 @@
       MoveScaled(1,66,120,29)
     }
     { ButtonGuardar Button
-      MoveScaled(122,87,10,8)
+      MoveScaled(122,87,37,8)
+      Text = ("Guardar Espacio de Trabajo")
       Picture = Picture["icon:/32/save-as"]
     }
     { DrawingArea1 DrawingArea
@@ -50,7 +38,7 @@
       Border = Border.Plain
     }
     { Frame1 Frame
-      MoveScaled(122,65,39,21)
+      MoveScaled(122,65,50,21)
       Visible = False
       Text = ("Ruta..") & "..."
       { Label2 Label
@@ -62,7 +50,7 @@
         MoveScaled(1,10,35,4)
       }
       { ButtonAceptarRuta Button
-        MoveScaled(21,16,17,3)
+        MoveScaled(19,16,17,3)
         Text = ("aceptar")
         Picture = Picture["icon:/16/ok"]
       }
@@ -71,14 +59,44 @@
         Text = ("Cancelar")
         Picture = Picture["icon:/16/cancel"]
       }
+      { ButtonPapelera Button
+        MoveScaled(41,10,8,10)
+        Picture = Picture["papelera.png"]
+      }
     }
     { ListBox1 ListBox
-      MoveScaled(2,13,31,44)
+      MoveScaled(2,10,32,47)
     }
     { ButtonCargarSeleccionada Button
       MoveScaled(2,5,31,4)
       Text = ("Carga Espacio Seleccionado")
       Picture = Picture["icon:/16/terminal"]
+    }
+    { VSplit1 HPanel
+      MoveScaled(35,5,86,52)
+      Expand = True
+      { Label4 Label
+        MoveScaled(2,0,15,3)
+        Text = ("Ventanas")
+      }
+      { TextAreaEspacioSeleccionado TextArea
+        MoveScaled(1,3,80,15)
+        Font = Font["-2"]
+      }
+      { Label3 Label
+        MoveScaled(2,18,17,3)
+        Text = ("Notas")
+      }
+      { TextAreaNotas TextArea
+        MoveScaled(1,21,81,30)
+        Background = &HD7FF5F&
+        Wrap = True
+      }
+    }
+    { PictureBox1 PictureBox
+      MoveScaled(128,3,28,25)
+      Picture = Picture["mayordomo.png"]
+      Stretch = True
     }
   }
 }
