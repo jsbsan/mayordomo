@@ -6,5 +6,11 @@ para colocar las ventanas en su sitio y leer su posicion
 
 https://ratoncio.wordpress.com/2015/05/25/preparar-un-entorno-de-trabajo-con-wmctrl/
 
-
 https://www.hostinger.es/tutoriales/como-usar-comando-find-locate-en-linux/
+
+
+
+-> ver comando lsof para identificar ficheros abiertos:
+https://www.linuxito.com/nix/993-como-listar-todos-los-archivos-abiertos-por-un-proceso
+
+evince    9090                  mint   12r      REG                8,1    796970    4230049 /home/mint/PDF/MES_DE_ABRIL__JULIO_SANCHEZ_BERRO.jpg__enerated_files.pdf
