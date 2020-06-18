@@ -46,9 +46,6 @@
         AutoResize = True
         Text = ("La ruta completa es.") & "..."
       }
-      { ButtonBoxRutaFichero ButtonBox
-        MoveScaled(1,10,35,4)
-      }
       { ButtonAceptarRuta Button
         MoveScaled(19,16,17,3)
         Text = ("aceptar")
@@ -62,6 +59,14 @@
       { ButtonPapelera Button
         MoveScaled(41,10,8,10)
         Picture = Picture["papelera.png"]
+      }
+      { ComboBoxRuta ComboBox
+        MoveScaled(1,10,33,3)
+      }
+      { LabelSeleccionarArchivo Label
+        MoveScaled(35,10,3,3)
+        Text = (".") & "..."
+        Border = Border.Plain
       }
     }
     { ListBox1 ListBox

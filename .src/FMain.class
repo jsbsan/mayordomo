@@ -76,25 +76,20 @@ Public Sub GridView1_DblClick()
 
     fila = GridView1.Rows.Selection[0] 'fila seleccionada
     Label2.text = GridView1[fila, 7].text & (": La ruta completa es...")
+    'cargarcombobox con rutas de ficheros que coincidan con el programa...
+    ComboBoxRuta.text = comun.carga(GridView1[fila, 7].text, GridView1[fila, 9].text) 'nombre de aplicacion y titulo de la ventana
 
-    ButtonBoxRutaFichero.text = ""
     Frame1.Visible = True
 
 End
 
 Public Sub ButtonBoxRutaFichero_Click()
 
-    If Dialog.OpenFile() Then
-        'cancelado
-    Else
-        ButtonBoxRutaFichero.text = Dialog.Path
-    Endif
-
 End
 
 Public Sub ButtonAceptarRuta_Click()
 
-    GridView1[fila, 9].text = ButtonBoxRutaFichero.text
+    GridView1[fila, 9].text = ComboBoxRuta.text
     Frame1.Visible = False
 
 End
@@ -186,5 +181,15 @@ Public Sub ListBox1_Click()
     TextAreaEspacioSeleccionado.text = Replace(informacionVentanas, "|", "\n")
 
     'empezar proceso de abrir aplicaciones y asignarle la ventana
+
+End
+
+Public Sub LabelSeleccionarArchivo_MouseDown()
+
+    If Dialog.OpenFile() Then
+        'cancelado
+    Else
+        ComboBoxRuta.Text = Dialog.Path
+    Endif
 
 End

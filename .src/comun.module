@@ -85,3 +85,64 @@ Public Function volcarcontenido(GridView1 As Gridview) As String
     Return contenido
 
 End
+
+Public Function carga(aplicacion As String, fichero As String) As String
+
+    Dim posiblesFicheros As String = ""
+
+    If InStr(Aplicacion, "libreoffice") > 0 Then
+        'ES LIBREOFFICE....
+        posiblesFicheros = LISTADOlosfLibreOffice("soffice.bs", Split(fichero, "-")[0])
+        Return posiblesFicheros
+    Endif
+
+    If InStr(Aplicacion, "evince") > 0 Then
+        'ES LIBREOFFICE....
+        posiblesFicheros = LISTADOlosfEvince("evince", ".pdf")
+        Return posiblesFicheros
+    Endif
+
+    Return posiblesFicheros
+
+End
+
+Public Function LISTADOlosfLibreOffice(APLICACION As String, PrimeraPalabra As String) As String
+
+    Dim salida As String
+    Dim lineas As String[]
+    Dim inicio As Integer
+
+    Shell "lsof | grep \"" & PrimeraPalabra & "\"" To salida
+
+    lineas = Split(salida, "\n")
+
+    inicio = RInStr(lineas[0], "/home")
+
+    If inicio > 0 Then Return Mid$(lineas[0], inicio, Len(lineas[0]))
+
+    Return ""
+
+End
+
+Public Function LISTADOlosfEvince(APLICACION As String, PrimeraPalabra As String) As String
+
+    Dim salida As String
+    Dim lineas As String[]
+    Dim inicio As Integer
+    Dim contieneAplicacion As Integer
+    Dim ltmp As String
+
+    Shell "lsof | grep \"" & PrimeraPalabra & "\"" To salida
+
+    lineas = Split(salida, "\n")
+
+    For Each ltmp In lineas
+        inicio = RInStr(ltmp, "/home")
+        contieneAplicacion = InStr(ltmp, aplicacion)
+        If inicio > 0 And contieneAplicacion > 0 Then Return Mid$(ltmp, inicio, Len(ltmp))
+
+    Next
+
+    Return ""
+
+End
