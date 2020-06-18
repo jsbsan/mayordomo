@@ -2,7 +2,7 @@
 Title=mayordomo
 Startup=FMain
 Icon=mayordomo.png
-Version=0.0.2
+Version=0.0.3
 Component=gb.image
 Component=gb.gui.qt
 Component=gb.form
@@ -16,7 +16,7 @@ Maintainer=jsbsan
 Address=jusabejusabe@gmail.com
 Url=http://jsbsan.blogspot.com/
 License=General Public License
-PackageName=mayordomo-0.0.2
+PackageName=mayordomo-0.0.3
 CreateEachDirectory=1
 Packager=1
 Systems=debian
