@@ -193,3 +193,7 @@ Public Sub LabelSeleccionarArchivo_MouseDown()
     Endif
 
 End
+
+Public Sub TextAreaNotas_KeyPress()
+
+End
