@@ -10,12 +10,13 @@
     Expand = True
     AutoResize = True
     { TextAreaSalida TextArea
-      MoveScaled(1,58,120,15)
+      MoveScaled(1,61,119,5)
       Font = Font["-2"]
     }
     { ButtonMostrar Button
-      MoveScaled(85,59,32,6)
-      Text = ("Mostrar Ventanas")
+      MoveScaled(88,60,32,6)
+      ToolTip = ("Primer paso para guardar ventanas actuales")
+      Text = ("1º Mostrar Ventanas")
       Picture = Picture["icon:/32/screen"]
     }
     { Label1 Label
@@ -26,11 +27,11 @@
       Border = Border.Plain
     }
     { GridView1 GridView
-      MoveScaled(1,66,120,29)
+      MoveScaled(1,66,120,30)
     }
     { ButtonGuardar Button
       MoveScaled(122,87,37,8)
-      Text = ("Guardar Espacio de Trabajo")
+      Text = ("2º Guardar Espacio de Trabajo")
       Picture = Picture["icon:/32/save-as"]
     }
     { DrawingArea1 DrawingArea
@@ -74,29 +75,9 @@
     }
     { ButtonCargarSeleccionada Button
       MoveScaled(2,5,32,7)
+      ToolTip = ("Lee un espacio de trabajo y lo muestra en pantalla")
       Text = ("Carga Espacio Seleccionado")
       Picture = Picture["icono ventanas.png"]
-    }
-    { VSplit1 HPanel
-      MoveScaled(35,5,86,52)
-      Expand = True
-      { Label4 Label
-        MoveScaled(2,0,15,3)
-        Text = ("Ventanas")
-      }
-      { TextAreaEspacioSeleccionado TextArea
-        MoveScaled(1,3,80,15)
-        Font = Font["-2"]
-      }
-      { Label3 Label
-        MoveScaled(2,18,17,3)
-        Text = ("Notas")
-      }
-      { TextAreaNotas TextArea
-        MoveScaled(1,21,81,30)
-        Background = &HD7FF5F&
-        Wrap = True
-      }
     }
     { PictureBox1 PictureBox
       MoveScaled(133,3,28,25)
@@ -107,6 +88,37 @@
       MoveScaled(125,17,14,10)
       Picture = Picture["icono ventanas.png"]
       Stretch = True
+    }
+    { VSplit1 Panel
+      MoveScaled(35,5,86,52)
+      Expand = True
+      { Label4 Label
+        MoveScaled(2,0,15,3)
+        Text = ("Ventanas")
+      }
+      { TextAreaEspacioSeleccionado TextArea
+        MoveScaled(1,3,84,15)
+        Font = Font["-2"]
+      }
+      { ButtonBorrarEspacio Button
+        MoveScaled(71,0,15,7)
+        ToolTip = ("Borrar Espacio de Trabajo")
+        Picture = Picture["icono ventanasBorrar.png"]
+      }
+      { Label3 Label
+        MoveScaled(2,18,17,3)
+        Text = ("Notas")
+      }
+      { TextAreaNotas TextArea
+        MoveScaled(1,21,84,30)
+        Background = &HD7FF5F&
+        Wrap = True
+      }
+    }
+    { Label5 Label
+      MoveScaled(2,56,66,6)
+      Font = Font["Bold,+3"]
+      Text = ("Generar Nuevos Espacios de trabajo")
     }
   }
 }

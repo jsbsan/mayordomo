@@ -1,6 +1,7 @@
 ' Gambas class file
 
 Private fila As Integer
+Private InformacionDibujar As String
 
 Public Sub Form_Open()
 
@@ -111,6 +112,8 @@ Public Sub recarga()
     Endif
 
     ListBox1.List = s 'carga las seccione existentes.
+    TextAreaEspacioSeleccionado.text = ""
+    TextAreaNotas.text = ""
 
 End
 
@@ -170,6 +173,7 @@ Public Sub ListBox1_Click()
     Dim datos As String
     Dim zonadeNota As Integer
 
+    'Muestra la información de la seccion seleccionada
     datos = Settings[ListBox1.List[ListBox1.Index]]
     informacionVentanas = Mid$(datos, 1, InStr(datos, "###") - 1)
 
@@ -180,7 +184,11 @@ Public Sub ListBox1_Click()
 
     TextAreaEspacioSeleccionado.text = Replace(informacionVentanas, "|", "\n")
 
-    'empezar proceso de abrir aplicaciones y asignarle la ventana
+    'dibujar como es la seccion
+    InformacionDibujar = TextAreaEspacioSeleccionado.text
+    DrawingArea1.Refresh()
+    'Para empezar proceso de abrir aplicaciones y asignarle la ventana
+    '  hay que pulsar el boton ButtonCargarSeleccionada
 
 End
 
@@ -195,5 +203,66 @@ Public Sub LabelSeleccionarArchivo_MouseDown()
 End
 
 Public Sub TextAreaNotas_KeyPress()
+
+End
+
+Public Sub ButtonBorrarEspacio_Click()
+
+    Dim respuesta As Integer
+
+    Dim SeccionBorrar As String = ListBox1.List[ListBox1.Index]
+
+    respuesta = Message.Question("Desea borrar el Espacio de Trabajo:\n" & SeccionBorrar, "Si", "Cancelar")
+
+    If respuesta = 1 Then
+        'borra información de la seccion
+        Settings[ListBox1.List[ListBox1.Index]] = ""
+        'borra la misma seccion
+
+        Settings["seccionesExistentes"] = Replace(Settings["seccionesExistentes"], SeccionBorrar & "|", "")
+
+        recarga() 'recarga los datos
+    Endif
+
+End
+
+Public Sub dibujar(informacion As String)
+
+    'Paint.Rectangle(10, 10, 100, 100)
+    'Paint.Brush = Paint.Color(Color.red)
+    'Paint.Fill(True)
+    'Paint.stroke
+    Dim lineasDatos As String[] = Split(informacion, "\n")
+    Dim ltmp As String
+    Dim coor As String[]
+    Dim contador As Integer = -1
+
+    Dim colores As Integer[] = [Color.red, Color.blue, Color.Green, Color.Pink, Color.orange, Color.Yellow, Color.cyan, Color.Gray]
+
+    For Each ltmp In lineasDatos
+        If Replace(ltmp, "\t", "") <> "" Then
+            coor = Split(ltmp, "\t")
+
+            Try Paint.Rectangle(Val(coor[0]), Val(coor[1]), Val(coor[2]), Val(coor[3]))
+            contador += 1
+            If contador > colores.Count Then contador = 0
+            Paint.Brush = Paint.Color(Colores[contador])
+            Paint.Fill(True)
+            Paint.stroke
+            Paint.Brush = Paint.Color(Color.yellow)
+            Paint.Font.Size = 110 'al tener una escala muy pequeña (0.1,0,1) , hay que poner el tamaño de letra muy grande
+            Paint.Text("[" & Str$(contador + 1) & "]", Val(coor[0]), Val(coor[1]), 100, 100)
+            Paint.fill
+            Paint.stroke
+        Endif
+    Next
+
+End
+
+Public Sub DrawingArea1_Draw()
+
+    Paint.Reset
+    Paint.Scale(0.1, 0.1)
+    dibujar(InformacionDibujar)
 
 End
